@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Costa Azul</title>
+</head>
+<body>
+    <header>
+        <h1>Hotel Costa Azul</h1>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#habitaciones">Habitaciones</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#reserva">Reservas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="inicio">
+            <h2>Bienvenido al Hotel Costa Azul</h2>
+            <p>Descubre la perfecta combinación de comodidad y servicio en nuestro hotel ubicado en la hermosa costa azul.</p>
+        </section>
+
+        <section id="habitaciones">
+            <h2>Nuestras Habitaciones</h2>
+            <p>Ofrecemos una variedad de habitaciones diseñadas para tu confort y descanso.</p>
+            <ul>
+                <li>Habitación Estándar</li>
+                <li>Habitación Deluxe</li>
+                <li>Suite Presidencial</li>
+            </ul>
+        </section>
+
+        <section id="servicios">
+            <h2>Servicios</h2>
+            <p>Disfruta de nuestros servicios exclusivos durante tu estancia.</p>
+            <ol>
+                <li>Desayuno Incluido</li>
+                <li>Acceso a piscina</li>
+                <li>Servicio a habitaciones</li>
+                <li>Conexión a internet</li>
+            </ol>
+        </section>
+
+        <section id="reserva">
+            <h2>Reservas</h2>
+            <p>Realiza tu reserva en línea o contáctanos para más información.</p>
+        
+            <form action="parciall1.html" method="post">
+
+                <label for="nombre">Nombre completo</label> <br>
+                <input type="text" id="nombre" name="nombre"> <br>
+
+                <label for="email">Correo electrónico</label> <br>
+                <input type="email" id="email" name="email"> <br>
+
+                <label for="date">Fecha de ingreso</label><br>
+                <input type="date" id="date" name="date"> <br>
+
+                <label for="cantidad">Cantidad de huéspedes</label><br>
+                <input type="number" id="cantidad" name="cantidad"> <br>
+
+                <label for="habitaciones">Elegir tipo de habitación</label><br>
+                <select id="habitaciones" name="habitaciones">
+                    <option value="estandar">Habitación Estándar</option>
+                    <option value="deluxe">Habitación Deluxe</option>
+                    <option value="suite">Suite Presidencial</option>
+                </select>
+                <br><br>
+
+                <input type="submit" id="confirmar" value="Confirmar">
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <section id="contacto">
+            <h2>Hotel Costa Azul</h2>
+            <p>Año 2026</p>
+            <p>Información de contacto</p>
+            <p>Correo: info@hotelcostaazul.com</p>
+            <p>Número de teléfono: 123-456-7890</p>
+        </section>
+    </footer>
+</body>
+</html>

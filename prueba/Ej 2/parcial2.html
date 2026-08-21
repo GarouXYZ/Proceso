@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pequitas Felices</title>
+</head>
+
+<body>
+    <header>
+        <h1>Veterinaria Pequitas Felices</h1>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#cuidados">Cuidados</a></li>
+                <li><a href="#consultas">Solicitar Consulta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <h2>Bienvenidos a la veterinaria Pequitas Felices</h2>
+            <p>En Veterinaria Pequitas Felices brindamos atención médica de calidad para perros, gatos y otras mascotas.
+                Nuestro equipo de profesionales se dedica al cuidado, la prevención y el bienestar de cada animal con
+                compromiso y dedicación.</p>
+        </section>
+
+        <section id="servicios">
+            <h2>Servicios</h2>
+            <p>Ofrecemos una amplia gama de servicios para el cuidado de tu mascota, incluyendo:</p>
+            <ul>
+                <li>Consultas médicas</li>
+                <li>Vacunación</li>
+                <li>Desparasitación</li>
+                <li>Cirugías</li>
+                <li>Baños y peluquería</li>
+            </ul>
+        </section>
+
+        <section id="cuidados">
+            <h2>Cuidados</h2>
+            <p>Para mantener a tu mascota saludable, es importante seguir estas recomendaciones:</p>
+            <ol>
+                <li>Mantener las vacunas al dia</li>
+                <li>Brindar una alimentacion adecuada</li>
+            </ol>
+        </section>
+
+        <section id="consultas">
+            <h2>Solicitar Consulta</h2>
+            <p>Si tu mascota necesita atención veterinaria, no dudes en contactarnos para agendar una consulta.</p> <br>
+
+            <form action="parcial2.html" method="post">
+
+                <label>Nombre Completo
+                    <input type="text"> <br>
+                </label> <br>
+
+                <label for="email">Correo Electrónico</label> <br>
+                <input type="email" id="email" name="email"> <br>
+
+                <label for="mascota">Nombre de la mascota</label> <br>
+                <input type="text" id="mascota" name="mascota"> <br>
+
+                <label for="tipo">Seleccione el tipo de mascota</label><br>
+                <select id="tipo" name="tipo">
+                    <option value="perro">Perro</option>
+                    <option value="gato">Gato</option>
+                    <option value="loro">Loro</option>
+                </select> <br>
+
+                <label for="date">Fecha de la consulta</label> <br>
+                <input type="date" id="date" name="date"> <br>
+
+                <label for="motivo">Motivo de la consulta</label> <br>
+                <textarea id="motivo" name="motivo"></textarea> <br>
+
+                <input type="submit" value="Enviar consulta">
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <section>
+            <h2>Pequitas Felices</h2>
+            <p>2026</p>
+            <p>Información de contacto</p>
+            <p>Correo: info@veterinariapequitasfelices.com</p>
+            <p>Número de teléfono: 123-456-7890</p>
+        </section>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <form>
+            <fieldset>
+                <legend>Encuesta de Satisfaccion</legend>
+
+                <label>Nombre:
+                    <input type="text">
+                </label><br>
+
+                <label>Correo Electronico:
+                    <input type="email">
+                </label><br>
+
+                <label>Producto o Servicio Utilizado:
+                    <input type="text" list="productos">
+                </label><br>
+
+                <datalist id="productos">
+                    <option value="Producto A">
+                    <option value="Producto B">
+                    <option value="Producto C">
+                    <option value="Servicio X">
+                    <option value="Servicio Y">
+                </datalist>
+
+                <label>Calificacion:
+                    <input type="radio" name="calificacion" value="1"> 
+                    1
+                </label>
+
+                <label>
+                    <input type="radio" name="calificacion" value="2">
+                    2
+                </label>
+
+                <label>
+                    <input type="radio" name="calificacion" value="3">
+                    3
+                </label>
+
+                <label>
+                    <input type="radio" name="calificacion" value="4">
+                    4
+                </label>
+
+                <label>
+                    <input type="radio" name="calificacion" value="5">
+                    5
+                </label> <br>
+
+                <label>Comentarios Adicionales:
+                    <textarea id="mensaje"></textarea>
+                </label>
+            </fieldset>
+            <input type="submit" value="Enviar encuesta" id="boton">
+        </form>
+    </main>
+</body>
+</html>
