@@ -1,6 +1,12 @@
 # Proceso
 Aca van a ir todas las cosas que haga de programacion y todo eso
 
+{
+    "php.validate.executablePath": "C:/xampp/php/php.exe",
+    "phpserver.phpPath": "C:/xampp/php/php.exe"
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
