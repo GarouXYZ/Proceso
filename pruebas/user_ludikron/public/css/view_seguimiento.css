@@ -1,0 +1,103 @@
+/* ====== PÁGINA ====== */
+body.seguimiento {
+  margin:0;
+  color:var(--ink);
+  background: url("../images/background.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+
+  /* ⬇️ Centro la tarjeta en pantalla y dejo despeje para las barras fijas */
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 64px 16px;       /* 64px arriba y abajo = alto de las barras */
+  box-sizing: border-box;
+}
+
+
+/* barras superior e inferior como en la imagen */
+body.seguimiento::before,
+body.seguimiento::after{
+  content:"";
+  position: fixed; left:0; width:100%; height:64px;
+  background:#0D0A2B;
+}
+body.seguimiento::before{ top:0; }
+body.seguimiento::after { bottom:0; }
+
+/* ====== TARJETA ====== */
+.segui-card{
+  width: clamp(260px, 30vw, 360px);
+  padding: 16px 18px 20px;
+  background: #0D0A2B;
+  border-radius: 12px;
+  box-shadow:
+    0 14px 40px rgba(3,6,20,.45),
+    inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* “volver” arriba a la izquierda como flecha sola */
+.segui-back{
+  position: fixed; top: 12px; left: 16px;
+}
+.segui-back a{
+  display:inline-block;
+  width: 40px; /* esto recorta el texto y deja solo la flecha */
+  overflow: hidden; white-space: nowrap;
+  font-size: 32px; line-height: 1;
+  color: #e9ebff; text-decoration: none;
+  opacity: .9;
+}
+.segui-back a:hover{ opacity: 1; }
+
+/* ====== CABECERA: “Número de jugadores  [select]” ====== */
+.segui-row{
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.segui-row label{
+  font-size: 12px; color: #a4abcf;
+}
+
+/* Select y entradas */
+.segui-card select,
+.segui-card input[type="text"]{
+  width: 100%;
+  background: #0e1130;
+  border: 1px solid #222a55;
+  color: #f5f6ff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+.segui-card select{
+  width: 72px; /* chico como en la captura */
+  padding-right: 24px;
+}
+.segui-card input::placeholder{ color:#7d84a8; }
+
+/* Lista de jugadores */
+.campo{ margin: 10px 0; }
+.campo label{
+  display:block;
+  margin: 0 0 6px;
+  font-size: 12px;
+  color:#9aa3c9;
+}
+
+/* Botón “Iniciar” */
+.segui-card button[type="submit"]{
+  display:block; margin: 10px auto 0;
+  padding: 6px 18px;
+  border: 0; border-radius: 999px;
+  background: #e9ecf4; color:#11152a;
+  font-weight: 600;
+  cursor: pointer;
+}
+.segui-card button[type="submit"]:hover{
+  filter: brightness(1.03);
+}
+
+/* Extras */
+.segui-card hr{ display:none; }
+.segui-card p[style]{ margin-top:0; }

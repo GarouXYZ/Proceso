@@ -1,0 +1,56 @@
+/* === TABLERO (más chico) === */
+.tablero-mapa{
+  position: relative;
+  width: clamp(780px, 82vw, 1200px);        /* achica el mapa */
+  aspect-ratio: 16/9;
+  margin: 16px auto;
+  background: url("../images/Mapa.png") center/contain no-repeat;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* === RECINTOS (compactos) === */
+.recinto{
+  position: absolute;
+  transform: translate(-50%,-50%);          /* centra la cajita en su punto */
+  width: clamp(120px, 9vw, 170px);          /* achica las cajas */
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(10,12,14,.55);
+  color: #fff;
+  display: grid;
+  gap: 6px;
+}
+.recinto label{
+  font: 600 12px/1.2 system-ui, Segoe UI, Roboto, Arial;
+}
+.recinto input[type="number"]{
+  width: 90px;                               /* inputs más chicos */
+  height: 24px;
+  font-size: 12px;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.95);
+  color: #111;
+}
+
+/* === POSICIONES (orden nuevo):
+   1 Iguales, 2 Tríos, 3 Parejas, 4 Rey/Mayorías, 5 Diversidad, 6 Carnívoros, 7 Río === */
+.recinto.r1{ top: 21%; left: 42%; }  /* R1 — Iguales     */
+.recinto.r2{ top: 45%; left: 33%; }  /* R2 — Tríos       */
+.recinto.r3{ top: 75%; left: 33%; }  /* R3 — Parejas     */
+.recinto.r4{ top: 15%; left: 63%; }  /* R4 — Rey/Mayorías*/
+.recinto.r5{ top: 45%; left: 66%; }  /* R5 — Diversidad  */
+.recinto.r6{ top: 74%; left: 70%; }  /* R6 — Carnívoros  */
+.recinto.r7{ top: 70%; left: 50%; }  /* R7 — Río/Cadena  */
+
+/* Debug (opc): poné class="tablero-mapa debug" para ver guías */
+.tablero-mapa.debug .recinto{ outline: 1px dashed rgba(255,255,255,.45); }
+
+/* Mobile (opc) */
+@media (max-width: 900px){
+  .tablero-mapa{ width: 95vw; }
+  .recinto{ width: clamp(130px, 35vw, 180px); }
+  .recinto input[type="number"]{ width: 72px; }
+}

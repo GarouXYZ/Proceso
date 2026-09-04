@@ -1,0 +1,95 @@
+:root{
+  --brand:#0D0A2B;
+  --ink:#000;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  color:var(--ink);
+  background: url("../images/background.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  padding-bottom: 84px; /* espacio para el footer fijo */
+}
+
+/* HEADER */
+.lobby-header{
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--brand);
+  color:#fff;
+  padding:10px 20px;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.header-left .avatar{
+  width:48px; height:48px;
+  border-radius:50%;
+  border:2px solid limegreen;
+  object-fit:cover;
+}
+
+.Usuario{
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45vw;
+  margin-left: clamp(8px, 2vw, 20px); /* << solo esto */
+}
+
+/* Título centrado absoluto: no se mueve */
+.Titulo{
+  margin:0;
+  font-size:22px;
+  color:#fff;
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  text-align:center;
+}
+
+/* Botón derecha */
+.header-right{ margin-left:auto; }
+
+.Cerrar_Sesion{
+  padding:8px 16px;
+  background:#ff4d4d;
+  border-radius:20px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:600;
+}
+
+/* FOOTER */
+.lobby-footer{
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #0D0A2B;
+  display:flex; justify-content:space-around; align-items:center;
+  padding: 14px 0; z-index: 10;
+}
+
+.lobby-footer a{
+  text-decoration:none;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.footer-icon{
+  width: 32px; height: 32px;
+  display:block; object-fit:contain;
+}
+
+.footer-icon-plus{
+  width: 36px; height: 36px;
+  display:block; object-fit:contain;
+}
