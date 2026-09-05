@@ -1,45 +1,75 @@
 # Proceso
 Aca van a ir todas las cosas que haga de programacion y todo eso
 
-import subprocess
-import re
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+      <input type="number" placeholder="Cantidad de Dias" id="dias"/> <br>
+      <input type="number" placeholder="Cantidad de Horas" id=""/> <br>
+      <select name="tipo" id="tipo">
+        <option value=""> Tipo </option>
+        <option value="Electricista"> Electricista </option>
+        <option value="Asistente"> Asistente </option>
+      </select> <br>
+      <input type="numero" placeholder="Costo" id="costo" />
+    </form>
+    <br>
+    <button type="button" id="aceptar">Aceptar</button>
 
-# Obtener los perfiles Wi-Fi guardados
-output = subprocess.check_output(
-    ["netsh", "wlan", "show", "profiles"],
-    text=True,
-    encoding="utf-8",
-    errors="ignore"
-)
+    <p id="mensaje"></p>
 
-# Buscar perfiles tanto en Windows en español como en inglés
-profiles = re.findall(
-    r"(?:All User Profile|Perfil de todos los usuarios)\s*:\s*(.*)",
-    output
-)
+    <script src="js/jquery-4.0.0.js"></script>
+    <script src="js/js.js"></script>
+  </body>
+</html>
 
-for profile in profiles:
-    profile = profile.strip()
+electricista 200ph 
+asistente 150ph 
+costo + 10% 
 
-    # Obtener los detalles del perfil
-    details = subprocess.check_output(
-        ["netsh", "wlan", "show", "profile", profile, "key=clear"],
-        text=True,
-        encoding="utf-8",
-        errors="ignore"
-    )
+funcion recibir numero y
+verificar si es positivo v o f 
 
-    # Buscar la contraseña
-    password_match = re.search(
-        r"(?:Key Content|Contenido de la clave)\s*:\s*(.*)",
-        details
-    )
+funcion recibir tipo usuario cantidad de horas y
+cantidad de dias, calcular costo total
+ 
+funcion costyo materiales
 
-    if password_match:
-        password = password_match.group(1).strip()
-    else:
-        password = "No password"
+cantidad de dias de trabajo
+cantidad horas por dia
+usa asistente o no 
+costo materiales
 
-    print(f"Wi-Fi: {profile}")
-    print(f"Password: {password}")
-    print("-" * 40)
+imprimir presupuesto
+
+---------------------------------------------------------------------------------------------------------------------------
+$("#aceptar").click(tomarDato);
+
+function tomarDato(){
+
+}
+
+function esPositivo(numero){
+    if (numero > 0){
+    } else {
+    }
+}
+
+function costoTotal(usuario, costoTotal, cantidadDias){
+    if (usuario == "Electricista"){
+    } else if (usuario == "Asistente"){
+    } else {
+    }
+
+    
+}
+
+function costoTotalMateriales(costoMateriales){
+
+}
