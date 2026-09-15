@@ -60,3 +60,69 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     echo $empleado->calcularSalario() . ".";
 }
 ?>
+
+<?php
+class Producto {
+    private String $nombre;
+    private String $categoria;
+    private int $precio;
+
+    public function __construct(String $nombre, String $categoria, int $precio) {
+        $this->nombre = $nombre;
+        $this->categoria = $categoria;
+        $this->precio = $precio;
+    }
+}
+?>
+
+<?php
+class Tienda {
+    private array $productos = [];
+
+    public function agregarProducto (Producto $producto): void {
+        $this->productos[] = $producto;
+    }
+
+    public function buscar () {
+        foreach ($this->productos as $producto) {
+            $existe = in_array($producto->categoria);
+            echo "$existe <br>";
+        }
+    }
+
+    public function mostrarTodos() {
+        echo "Lista de productos: <br>";
+        foreach ($this->productos as $producto) {
+            echo $producto . "<br>";
+        }   
+    }
+}
+?>
+
+<?php
+session_start();
+
+$_SESSION['producto'] = [
+    ['producto' => '']
+]
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persona</title>
+</head>
+<body>
+    <form action="procesar.php" method="POST">
+        <input type="text" placeholder="Nombre" name="nombre" required>
+        <br>
+        <input type="text" placeholder="Categoria" name="categoria" required>
+        <br>
+        <input type="number" placeholder="Precio" name="precio" required>
+        <br>
+        <input type="submit" value="Calcular Salario">
+    </form>
+</body>
+</html>
