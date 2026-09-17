@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+        <label for="">Cantidad de dias
+            <input type="number" placeholder="Dias" id="cantDias">
+        </label>
+        <br>
+        <label for="">Horas por dia
+            <input type="number" placeholder="Horas x Dia" id="cantHoras">
+        </label>
+        <br>
+        <label>Limpieza profunda?
+        <select name="limpiezaProfunda" id="limpiezaProfunda">
+            <option value="Si"> Si</option>
+            <option value="No">No</option>
+        </select>
+        <br>
+        <label for="">Distancia al domicilio
+            <input type="number" placeholder="Distancia" id="distancia">
+        </form>
+        <br><br>
+        <button type="button" id="calcular">Calcular Presupuesto 
+        </button>
+
+        <p id="mensaje"></p>
+
+        <script src="js/jquery-4.0.0.js"></script>
+        <script src="js/js.js"></script>
+  </body>
+</html>
