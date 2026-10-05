@@ -8,8 +8,6 @@ class Animal {
         $this->edad = $edad;
     }
 
-    public function hacerSonido() {
-        echo "El animal hace un sonido.<br>";
-    }
+    public function hacerSonido() {}
 }
 ?>

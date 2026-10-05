@@ -36,11 +36,11 @@ class Vehiculo {
         $this->kilometraje += $nuevoKilometraje;
     }
 
-    public function __toString(): string {
-        return "Marca: $this->marca <br>
-                Modelo: $this->modelo <br>
-                Año: $this->año <br>
-                Kilometraje: $this->kilometraje";
+    public function mostrarInformacion(){
+        return "Marca: " . $this->marca . "<br>" .
+               "Modelo: " . $this->modelo . "<br>" .
+               "Año: " . $this->año . "<br>" .
+               "Kilometraje: " . $this->kilometraje;
     }
 }
 ?>

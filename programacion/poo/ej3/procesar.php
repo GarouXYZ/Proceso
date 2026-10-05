@@ -1,6 +1,14 @@
 <?php
 require_once ('vehiculo.php');
 
+$Vehiculo = new Vehiculo("Toyota", "Corolla", "2020", 50000);
+echo $Vehiculo->mostrarInformacion();
+
+$Vehiculo->setKilometraje(50); 
+    echo "<br>";
+    echo "Kilometraje nuevo: ";
+    echo $Vehiculo->getKilometraje();
+/*
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $marca = $_POST ['marca'];
     $modelo = $_POST ['modelo'];
@@ -22,4 +30,5 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     echo "Kilometraje nuevo: ";
     echo $vehiculo->getKilometraje();
 }
+*/
 ?>

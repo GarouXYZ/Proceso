@@ -1,39 +1,85 @@
-import subprocess
-import re
+from microbit import *
+import music
 
-output = subprocess.check_output(
-    ["netsh", "wlan", "show", "profiles"],
-    text=True,
-    encoding="utf-8",
-    errors="ignore"
+# Contraseña
+clave = "ABAAB"
+ingreso = ""
+
+# Tiempo de la última pulsación
+ultimo_tiempo = 0
+
+cerrado = 25
+abierto = 64
+
+# Imagen de candado abierto
+candado_abierto = Image(
+    "00000:"
+    "09090:"
+    "90009:"
+    "99999:"
+    "99999"
 )
 
-profiles = re.findall(
-    r"(?:All User Profile|Perfil de todos los usuarios)\s*:\s*(.*)",
-    output
-)
+# Posición inicial cerrado
+pin0.set_analog_period(20)
+pin0.write_analog(cerrado)   # Aproximadamente 0°
 
-for profile in profiles:
-    profile = profile.strip()
+while True:
 
-    # Obtener los detalles del perfil
-    details = subprocess.check_output(
-        ["netsh", "wlan", "show", "profile", profile, "key=clear"],
-        text=True,
-        encoding="utf-8",
-        errors="ignore"
-    )
+    # Si pasaron más de 2 segundos entre pulsaciones
+    if len(ingreso) > 0 and running_time() - ultimo_tiempo > 2000:
+        display.show(Image.NO)
+        sleep(1000)
+        ingreso = ""
+        display.clear()
 
-    password_match = re.search(
-        r"(?:Key Content|Contenido de la clave)\s*:\s*(.*)",
-        details
-    )
+    # Botón A
+    if button_a.was_pressed():
+        if len(ingreso) < 5:
+            ingreso += "A"
+            ultimo_tiempo = running_time()
+            display.show("A")
+            sleep(150)
+            display.clear()
 
-    if password_match:
-        password = password_match.group(1).strip()
-    else:
-        password = "No password"
+    # Botón B
+    if button_b.was_pressed():
+        if len(ingreso) < 5:
+            ingreso += "B"
+            ultimo_tiempo = running_time()
+            display.show("B")
+            sleep(150)
+            display.clear()
 
-    print(f"Wi-Fi: {profile}")
-    print(f"Password: {password}")
-    print("-" * 40)
+    # Verificar automáticamente al llegar a 5 caracteres
+    if len(ingreso) == 5:
+
+        if ingreso == clave:
+
+            # Sonido de apertura
+            music.play(["C5:1", "E5:1", "G5:2"])
+
+            pin0.write_analog(abierto)
+
+            # Mantener abierta hasta que se presione B
+            while True:
+
+                if button_b.was_pressed():
+
+                    # Sonido de cierre
+                    music.play(["G5:1", "E5:1", "C5:2"])
+
+                    # Cerrar la tranca
+                    pin0.write_analog(cerrado)
+                    sleep(500)
+
+                    break
+
+                sleep(20)
+
+        else:
+            display.show(Image.NO)
+            sleep(1000)
+
+        ingreso = ""
+        display.clear()

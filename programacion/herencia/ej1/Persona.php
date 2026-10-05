@@ -9,8 +9,8 @@ class Persona {
     }
 
     public function mostrarInformacion() {
-        echo "<p>Nombre: " . $this->nombre . "</p>";
-        echo "<p>Edad: " . $this->edad . "</p>";
+        echo "<p>Nombre: " . $this->nombre . "<br><br>
+                Edad: " . $this->edad . "</p>";
     }
 }
 ?>

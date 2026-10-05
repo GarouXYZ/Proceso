@@ -1,6 +1,10 @@
 <?php
 require_once ('producto.php');
 
+$Producto = new Producto ("Manzana", 100, 10);
+echo $Producto->mostrarInformacion();
+
+/*
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST ['nombre'];
     $precio = $_POST ['precio'];
@@ -25,4 +29,5 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     echo $producto->getStock();
 
 }
+*/
 ?>

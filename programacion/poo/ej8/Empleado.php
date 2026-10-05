@@ -19,5 +19,12 @@ class Empleado {
             return $tarifaHora;
         }
     }
+
+    public function mostrarInformacion() {
+        echo "Nombre: " . $this->nombre . "<br>";
+        echo "Horas trabajadas: " . $this->horasTrabajadas . "<br>";
+        echo "Tarifa por hora: $" . $this->tarifaHora . "<br>";
+        echo "Salario: $" . $this->calcularSalario() . "<br>";
+    }
 }
 ?>

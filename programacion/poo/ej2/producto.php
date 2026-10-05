@@ -1,10 +1,10 @@
 <?php
 class Producto {
     private String $nombre;
-    private string $precio;
-    private string $stock;
+    private int $precio;
+    private int $stock;
 
-    public function __construct(String $nombre, string $precio, string $stock) {   
+    public function __construct(String $nombre, int $precio, int $stock) {   
         $this->nombre = $nombre;
         $this->precio = $precio;
         $this->stock = $stock;
@@ -18,20 +18,26 @@ class Producto {
         $this->nombre = $nombre;
     }
 
-    public function getPrecio(): string {
+    public function getPrecio(): int {
         return $this->precio;
     }
 
-    public function setPrecio(string $precio): void {
+    public function setPrecio(int $precio): void {
         $this->precio = $precio;
     }
 
-    public function getStock(): string {
+    public function getStock(): int {
         return $this->stock;
     }
 
-    public function setStock(string $stock): void {
+    public function setStock(int $stock): void {
         $this->stock = $stock;
+    }
+
+    public function mostrarInformacion(){
+        return "Nombre: " . $this->nombre . "<br>" .
+               "Precio: " . $this->precio . "<br>" .
+               "Stock: " . $this->stock;
     }
 }
 ?>

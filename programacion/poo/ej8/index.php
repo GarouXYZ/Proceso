@@ -1,8 +1,14 @@
 
 <?php
 require_once ('Empleado.php');
+
+$empleado1 = new Empleado("Juan Perez", 15.50, 40);
+echo "El empleado " . $empleado1->getNombre() . " tiene un salario de $";
+echo $empleado1->calcularSalario() . ".";
+echo $empleado1->mostrarInformacion() . ".";
 ?>
 
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +27,7 @@ require_once ('Empleado.php');
         <input type="submit" value="Calcular Salario">
     </form>
 
-    <div>
+    <div>/*
         <?php
             if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
                 $nombre = $_POST ['nombre'];
@@ -33,7 +39,8 @@ require_once ('Empleado.php');
                 echo "El Empleado " . $nombre . " tiene un salario de $";
                 echo $empleado->calcularSalario() . ".";
             }
-        ?>
+        ?>*/
     </div>
 </body>
 </html>
+-->

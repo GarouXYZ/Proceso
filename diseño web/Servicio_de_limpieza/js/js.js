@@ -6,6 +6,11 @@ function calcular() {
     let limpiezaProfunda = $("#limpiezaProfunda").val();
     let distancia = Number($("#distancia").val());
 
+    if (!esPositivo(cantDias) || !esPositivo(cantHoras) || !esPositivo(distancia)) {
+        $("#mensaje").html("Por favor, ingrese una cantidad mayor a 0.");
+        return;
+    }
+    
     let Servicio = costoServicio(cantDias, cantHoras, limpiezaProfunda)
     let Traslado = costoTraslado(distancia);
 

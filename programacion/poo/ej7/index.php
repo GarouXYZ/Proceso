@@ -2,6 +2,15 @@
 require_once 'Producto.php';
 require_once 'Pedidos.php';
 
+$producto = new Producto("Camiseta", 20.99, 2);
+
+$pedido = new Pedido();
+$pedido->agregarProducto("Manzana", 0.99, 5);
+
+echo "El total del pedido es: $" . $pedido->calcularTotal();
+
+?>
+/*
 session_start();
 
 if (!isset($_SESSION['pedido'])) {

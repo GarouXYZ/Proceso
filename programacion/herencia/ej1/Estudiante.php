@@ -9,7 +9,7 @@ class Estudiante extends Persona {
 
     public function mostrarInformacion() {
         parent::mostrarInformacion();
-        echo "Curso: " . $this->curso . "<br>";
+        echo "Curso: " . $this->curso;
     }
 }
 ?>

@@ -1,6 +1,20 @@
 <?php
 require_once ('cuentabancaria.php');
 
+$Cuentabancaria = new Cuentabancaria("Juan Perez", 1000, "Ahorro");
+
+$Cuentabancaria->depositar(500);
+
+$retirar = 500;
+
+if ($retirar > $Cuentabancaria->getSaldo()) {
+    echo "No se puede retirar esa cantidad porque el saldo es insuficiente.";
+} else {
+    $Cuentabancaria->retirar($retirar);
+}
+
+echo $Cuentabancaria->mostrarInformacion();
+/*
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $titular = $_POST ['titular'];
     $saldo = $_POST ['saldo'];
@@ -23,4 +37,5 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 
 
 }
+*/
 ?>

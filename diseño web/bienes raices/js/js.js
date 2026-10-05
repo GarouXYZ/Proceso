@@ -21,4 +21,3 @@ function interes(){
         "<br>Pago Mensual: $" + cuota.toFixed(1)
     );
 }
-

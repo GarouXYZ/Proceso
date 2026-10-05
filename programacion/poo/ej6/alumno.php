@@ -24,5 +24,11 @@ class Alumno {
         $this->nota[] = $nota;
         $this->promedio = array_sum($this->nota) / count($this->nota);
     }
+
+    public function mostrarInformacion(){
+        echo "Nombre: " . $this->nombre . "<br>";
+        echo "Notas: " . implode(", ", $this->nota) . "<br>";
+        echo "Promedio: " . $this->promedio . "<br>";
+    }
 }
 ?>

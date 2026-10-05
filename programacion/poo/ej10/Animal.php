@@ -15,6 +15,9 @@ class Animal {
     public function getEdad(): int {
         return $this->edad;
     }
+
+    public function mostrarInformacion(){
+    }
     
     public function hacerSonido(): string {
         return "Sonido";

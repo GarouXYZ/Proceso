@@ -1,6 +1,12 @@
 <?php
 require_once ('alumno.php');
 
+$alumno = new Alumno("Juan Perez", 8.5);
+
+$alumno->agregarNota(9.0);
+
+$alumno->mostrarInformacion();
+/*
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST ['nombre'];
     $nota = $_POST ['nota'];
@@ -13,4 +19,5 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     echo "Nota: " . $nota . "<br>";
     echo "Promedio: " . $alumno->getPromedio() . "<br>";
 }
+*/
 ?>

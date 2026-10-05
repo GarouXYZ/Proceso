@@ -26,18 +26,18 @@ class CuentaBancaria {
         $this->saldo = $saldo;
     }
 
-    public function Depositar($depositar) {
+    public function depositar(int $depositar): void {
         $this->saldo += $depositar;
     }
 
-    public function Retirar($retirar) {
+    public function retirar(int $retirar): void {
         $this->saldo -= $retirar;
     }
 
-        public function __toString(): string {
-        return "Titular: $this->titular <br>
-                Saldo: $this->saldo <br>
-                Tipo de Cuenta: $this->tipocuenta";
+        public function mostrarInformacion() {
+        return "Titular: " . $this->titular . "<br>" .
+               "Saldo: " . $this->saldo . "<br>" .
+               "Tipo de Cuenta: " . $this->tipocuenta;
     }
 }
 ?>

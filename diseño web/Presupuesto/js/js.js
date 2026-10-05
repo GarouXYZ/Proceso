@@ -1,11 +1,16 @@
 $("#aceptar").click(tomarDato);
 
 function tomarDato(){
-    let cantidadHoras = $("#horas").val();
-    let cantidadDias = $("#dias").val();
+    let cantidadHoras = Number($("#horas").val());
+    let cantidadDias = Number($("#dias").val());
     let usuario = $("#usuario").val();
-    let costoMateriales = $("#costo").val();
+    let costoMateriales = Number($("#costo").val());
 
+    if (!esPositivo(cantidadHoras) || !esPositivo(cantidadDias) || !esPositivo(costoMateriales)){
+        $("#mensaje").html("Ingrese valores mayores a 0.");
+        return;
+    }
+    
     let costo = costoTotal(usuario, cantidadHoras, cantidadDias);
     let costoMaterial = costoTotalMateriales(costoMateriales);
 
@@ -25,10 +30,8 @@ function esPositivo(numero){
 function costoTotal(usuario, cantidadHoras, cantidadDias){
     if (usuario == "No"){
         return 200 * cantidadDias * cantidadHoras;
-    } else if (usuario == "Si"){
-        return (200 + 150) * cantidadDias * cantidadHoras;
     } else {
-        return 0;
+        return (200 + 150) * cantidadDias * cantidadHoras;
     }
 }
 
