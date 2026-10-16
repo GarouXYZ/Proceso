@@ -5,15 +5,15 @@ class Televisor extends Dispositivo implements Encendible {
     }
 
     public function encender(){
-        echo "El televisor esta encendido.<br>";
+        return "El televisor esta encendido.<br>";
     }
 
     public function apagar(){
-        echo "El televisor esta apagado.<br>";
+        return "El televisor esta apagado.<br>";
     }
 
     public function informacion(){
-        echo "El televisor es de la marca: " . $this->getMarca() . "<br>";
+        return "El televisor es de la marca: " . $this->getMarca() . "<br>";
     }
 }
 ?>

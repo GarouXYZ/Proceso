@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenamiento</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: '#111827',
+                        cardHover: '#1f2937',
+                        accentOrange: '#f97316',
+                        accentBlue: '#3b82f6',
+                        accentGreen: '#10b981'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js para los gráficos de progreso -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-cardBg/90 backdrop-blur-md border-b border-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-600/20 overflow-hidden">
+                    <img src="../Yo.png" alt="Yo" class="w-full h-full object-cover rounded-xl">
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight text-white">Garou</h1>
+                    <p class="text-xs text-blue-500 font-medium">Calistenia & Fuerza Progresiva</p>
+                </div>
+            </div>
+            <nav class="flex space-x-1 sm:space-x-3 overflow-x-auto py-2">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-blue-600 text-white shadow-md shadow-blue-600/20 whitespace-nowrap">
+                    <i class="fa-solid fa-house mr-1.5"></i> Inicio
+                </button>
+                <button onclick="switchTab('push')" id="nav-push" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800 whitespace-nowrap">
+                    <i class="fa-solid fa-fire mr-1.5"></i> Empuje
+                </button>
+                <button onclick="switchTab('pull')" id="nav-pull" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800 whitespace-nowrap">
+                    <i class="fa-solid fa-anchor mr-1.5"></i> Tracción
+                </button>
+                <button onclick="switchTab('legs')" id="nav-legs" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800 whitespace-nowrap">
+                    <i class="fa-solid fa-bolt mr-1.5"></i> Piernas
+                </button>
+                <button onclick="switchTab('arms')" id="nav-arms" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800 whitespace-nowrap">
+                    <i class="fa-solid fa-hand-fist mr-1.5"></i> Brazos
+                </button>
+                <button onclick="switchTab('history')" id="nav-history" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800 whitespace-nowrap">
+                    <i class="fa-solid fa-chart-line mr-1.5"></i> Historial
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- DASHBOARD TAB -->
+        <section id="tab-dashboard" class="space-y-6">
+            <div class="bg-gradient-to-r from-gray-900 via-gray-900 to-blue-950/40 rounded-2xl p-6 border border-gray-800 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10">
+                    <span class="px-3 py-1 bg-blue-500/10 text-blue-500 rounded-full text-xs font-semibold uppercase tracking-wider border border-blue-500/20">Panel Principal</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-3 text-white">¡Bienvenido de nuevo Cazador Joaco!</h2>
+                    <p class="text-gray-400 text-sm mt-1 max-w-2xl">Entrenamiento que combina calistenia y pesas para lograr la mejor condicion en 3 meses.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div onclick="switchTab('push')" class="bg-cardBg hover:bg-cardHover cursor-pointer border border-gray-800 hover:border-blue-500/50 transition-all rounded-2xl p-5 shadow-lg group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Lunes: Empuje</h3>
+                    <p class="text-xs text-gray-400 mt-1">HSPU, Elevaciones laterales, Tríceps y Flexiones normales.</p>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-blue-400">
+                        <span>Ingresar</span> <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <div onclick="switchTab('pull')" class="bg-cardBg hover:bg-cardHover cursor-pointer border border-gray-800 hover:border-blue-500/50 transition-all rounded-2xl p-5 shadow-lg group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-anchor"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Miércoles: Tracción</h3>
+                    <p class="text-xs text-gray-400 mt-1">Dominadas con giro, Australianas, Curl Pelican y Elevaciones laterales.</p>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-blue-400">
+                        <span>Ingresar</span> <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <div onclick="switchTab('legs')" class="bg-cardBg hover:bg-cardHover cursor-pointer border border-gray-800 hover:border-emerald-500/50 transition-all rounded-2xl p-5 shadow-lg group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Viernes: Piernas</h3>
+                    <p class="text-xs text-gray-400 mt-1">Sissy squats, Elevación de talón, Curl nórdico invertido y Curl nórdico.</p>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-emerald-400">
+                        <span>Ingresar</span> <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <div onclick="switchTab('arms')" class="bg-cardBg hover:bg-cardHover cursor-pointer border border-gray-800 hover:border-purple-500/50 transition-all rounded-2xl p-5 shadow-lg group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-hand-fist"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Sábado: Brazos</h3>
+                    <p class="text-xs text-gray-400 mt-1">Elevaciones laterales, Tríceps de aislamiento y Curl Pelican.</p>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-purple-400">
+                        <span>Ingresar</span> <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PUSH WORKOUT TAB -->
+        <section id="tab-push" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-cardBg p-6 rounded-2xl border border-gray-800 shadow-lg">
+                <div>
+                    <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-semibold uppercase tracking-wider border border-blue-500/20">Lunes de Empuje</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Rutina de Empuje</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="date" id="push-date" class="bg-gray-900 border border-gray-700 text-gray-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
+                    <button onclick="saveWorkout('push')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-500/20">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Guardar Sesión
+                    </button>
+                </div>
+            </div>
+
+            <!-- HSPU -->
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-gray-800 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">1. Flexiones en Pino (HSPU)</h3>
+                        <p class="text-xs text-gray-400 mt-0.5">Elige ubicación (Piso o Paralelas) y de 3 a 5 series.</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <select id="hspu-location" class="bg-gray-900 border border-gray-700 text-blue-400 text-xs rounded-lg px-3 py-1.5 font-semibold focus:outline-none">
+                            <option value="Piso">En Piso</option>
+                            <option value="Paralelas">En Paralelas</option>
+                        </select>
+                        <select id="hspu-series-count" onchange="renderHspuInputs()" class="bg-gray-900 border border-gray-700 text-blue-400 text-xs rounded-lg px-3 py-1.5 font-semibold focus:outline-none">
+                            <option value="3">3 Series</option>
+                            <option value="4">4 Series</option>
+                            <option value="5">5 Series</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3" id="push-hspu-sets"></div>
+            </div>
+
+            <!-- Lateral Raises -->
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                    <h3 class="text-lg font-bold text-white">2. Elevaciones Laterales (3 series al fallo)</h3>
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs text-gray-400">Peso (kg):</label>
+                        <input type="number" id="push-lat-weight" value="10" step="0.5" class="w-16 bg-gray-900 border border-gray-700 text-white text-center text-xs rounded-lg py-1.5">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="push-lat-sets"></div>
+                <div id="lat-warning" class="hidden text-xs bg-amber-500/10 border border-amber-500/20 text-amber-400 p-3 rounded-xl flex items-center">
+                    <i class="fa-solid fa-triangle-exclamation mr-2"></i> ¡Superaste 15 reps en la 1ª serie! Sube de peso la próxima vez.
+                </div>
+            </div>
+
+            <!-- Triceps PU -->
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                    <h3 class="text-lg font-bold text-white">3. Flexiones de Tríceps (2 series al fallo)</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="push-tri-sets"></div>
+            </div>
+
+            <!-- Normal Pushups -->
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                    <h3 class="text-lg font-bold text-white">4. Flexiones Normales (2 series al fallo)</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="push-norm-sets"></div>
+            </div>
+        </section>
+
+        <!-- PULL WORKOUT TAB -->
+        <section id="tab-pull" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-cardBg p-6 rounded-2xl border border-gray-800 shadow-lg">
+                <div>
+                    <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-semibold uppercase tracking-wider border border-blue-500/20">Miércoles de Tracción</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Rutina de Tracción</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="date" id="pull-date" class="bg-gray-900 border border-gray-700 text-gray-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
+                    <button onclick="saveWorkout('pull')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-500/20">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Guardar Sesión
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">1. Dominadas con giro (Prono a Supino) - 2 series al fallo</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="pull-dom-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">2. Dominadas Australianas - 2 series al fallo</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="pull-aus-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">3. Curl Pelican - 2 series al fallo</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="pull-pelican-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                    <h3 class="text-lg font-bold text-white">4. Elevaciones Laterales - 3 series al fallo</h3>
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs text-gray-400">Peso (kg):</label>
+                        <input type="number" id="pull-lat-weight" value="10" step="0.5" class="w-16 bg-gray-900 border border-gray-700 text-white text-center text-xs rounded-lg py-1.5">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="pull-lat-sets"></div>
+            </div>
+        </section>
+
+        <!-- LEGS WORKOUT TAB -->
+        <section id="tab-legs" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-cardBg p-6 rounded-2xl border border-gray-800 shadow-lg">
+                <div>
+                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-semibold uppercase tracking-wider border border-emerald-500/20">Viernes de Tren Inferior</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Rutina de Piernas</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="date" id="legs-date" class="bg-gray-900 border border-gray-700 text-gray-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-emerald-500">
+                    <button onclick="saveWorkout('legs')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-emerald-500/20">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Guardar Sesión
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">1. Sissy Squats (2 series, 3ª al fallo)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="legs-sissy-sets"></div>
+            </div>
+
+            <!-- MODIFICADO: Elevación de Talón Unilateral -->
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">2. Elevación de Talón Unilateral (2 series al fallo)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="legs-calf-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">3. Curl Nórdico Invertido (Al fallo)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="legs-invnordic-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">4. Curl Nórdico (Al fallo)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="legs-nordic-sets"></div>
+            </div>
+        </section>
+
+        <!-- ARMS WORKOUT TAB -->
+        <section id="tab-arms" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-cardBg p-6 rounded-2xl border border-gray-800 shadow-lg">
+                <div>
+                    <span class="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs font-semibold uppercase tracking-wider border border-purple-500/20">Sábado de Brazos</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Brazos & Deltoides</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="date" id="arms-date" class="bg-gray-900 border border-gray-700 text-gray-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-purple-500">
+                    <button onclick="saveWorkout('arms')" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-purple-500/20">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Guardar Sesión
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                    <h3 class="text-lg font-bold text-white">1. Elevaciones Laterales (3 series al fallo)</h3>
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs text-gray-400">Peso (kg):</label>
+                        <input type="number" id="arms-lat-weight" value="10" step="0.5" class="w-16 bg-gray-900 border border-gray-700 text-white text-center text-xs rounded-lg py-1.5">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="arms-lat-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">2. Tríceps Aislamiento (2 series al fallo)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="arms-tri-sets"></div>
+            </div>
+
+            <div class="bg-cardBg rounded-2xl p-6 border border-gray-800 shadow-lg space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-4">3. Curl Pelican (2 series al fallo)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="arms-pelican-sets"></div>
+            </div>
+        </section>
+
+        <!-- HISTORY TAB -->
+        <section id="tab-history" class="hidden space-y-8">
+            <div class="bg-cardBg p-6 rounded-2xl border border-gray-800 shadow-lg space-y-6">
+                <!-- CABECERA CON BOTONES DE RESPALDO Y BORRADO -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                    <div>
+                        <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-semibold uppercase tracking-wider border border-blue-500/20">Progreso Total</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Evolución por Volumen (Suma Total de Repeticiones)</h2>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="exportData()" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs font-semibold px-3 py-2 rounded-xl transition-all">
+                            <i class="fa-solid fa-download mr-1.5"></i> Exportar
+                        </button>
+                        <label class="bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/30 text-xs font-semibold px-3 py-2 rounded-xl transition-all cursor-pointer">
+                            <i class="fa-solid fa-upload mr-1.5"></i> Importar <input type="file" id="import-file" accept=".json" onchange="importData(event)" class="hidden">
+                        </label>
+                        <button onclick="clearHistory()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold px-3 py-2 rounded-xl transition-all">
+                            <i class="fa-solid fa-trash mr-1.5"></i> Borrar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- GRÁFICOS: EMPUJE -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider flex items-center"><i class="fa-solid fa-fire mr-2"></i> Lunes: Empuje</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">HSPU (Volumen Total)</h4>
+                            <div class="relative h-48"><canvas id="chart-push-hspu"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Elevaciones Laterales (Empuje)</h4>
+                            <div class="relative h-48"><canvas id="chart-push-lat"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Flexiones de Tríceps</h4>
+                            <div class="relative h-48"><canvas id="chart-push-tri"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Flexiones Normales</h4>
+                            <div class="relative h-48"><canvas id="chart-push-norm"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRÁFICOS: TRACCIÓN -->
+                <div class="space-y-4 pt-4 border-t border-gray-800">
+                    <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider flex items-center"><i class="fa-solid fa-anchor mr-2"></i> Miércoles: Tracción</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Dominadas con Giro</h4>
+                            <div class="relative h-48"><canvas id="chart-pull-dom"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Dominadas Australianas</h4>
+                            <div class="relative h-48"><canvas id="chart-pull-aus"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Curl Pelican (Tracción)</h4>
+                            <div class="relative h-48"><canvas id="chart-pull-pelican"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Elevaciones Laterales (Tracción)</h4>
+                            <div class="relative h-48"><canvas id="chart-pull-lat"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRÁFICOS: PIERNAS -->
+                <div class="space-y-4 pt-4 border-t border-gray-800">
+                    <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center"><i class="fa-solid fa-bolt mr-2"></i> Viernes: Piernas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Sissy Squats</h4>
+                            <div class="relative h-48"><canvas id="chart-legs-sissy"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Elevación de Talón</h4>
+                            <div class="relative h-48"><canvas id="chart-legs-calf"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Curl Nórdico Invertido</h4>
+                            <div class="relative h-48"><canvas id="chart-legs-invnordic"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Curl Nórdico</h4>
+                            <div class="relative h-48"><canvas id="chart-legs-nordic"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRÁFICOS: BRAZOS -->
+                <div class="space-y-4 pt-4 border-t border-gray-800">
+                    <h3 class="text-sm font-bold text-purple-400 uppercase tracking-wider flex items-center"><i class="fa-solid fa-hand-fist mr-2"></i> Sábado: Brazos</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Elevaciones Laterales (Brazos)</h4>
+                            <div class="relative h-48"><canvas id="chart-arms-lat"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Tríceps Aislamiento</h4>
+                            <div class="relative h-48"><canvas id="chart-arms-tri"></canvas></div>
+                        </div>
+                        <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800 md:col-span-2">
+                            <h4 class="text-xs font-semibold text-gray-300 mb-2">Curl Pelican (Brazos)</h4>
+                            <div class="relative h-48"><canvas id="chart-arms-pelican"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REGISTRO DETALLADO -->
+                <div class="border-t border-gray-800 pt-6">
+                    <h3 class="text-sm font-bold text-white mb-4">Registro Histórico Detallado</h3>
+                    <div id="history-container" class="space-y-4"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-cardBg border-t border-gray-800 py-4 mt-12 text-center text-xs text-gray-500">
+        <p>Garou Tracker &bull; Leandro Joaquin Cedrez Diaz &bull; 2026</p>
+    </footer>
+
+    <script>
+        const todayStr = new Date().toISOString().split('T')[0];
+        ['push-date', 'pull-date', 'legs-date', 'arms-date'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.value = todayStr;
+        });
+
+        function switchTab(tabId) {
+            ['dashboard', 'push', 'pull', 'legs', 'arms', 'history'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`nav-${t}`);
+                if(btn) btn.className = "px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800 whitespace-nowrap";
+            });
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if(activeBtn) activeBtn.className = "px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-blue-600 text-white shadow-md shadow-blue-600/20 whitespace-nowrap";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(tabId === 'history') renderHistory();
+        }
+
+        function renderInputs() {
+            renderHspuInputs();
+            renderSetInputs('push-lat-sets', 3, 'push-lat', 'Al Fallo', 'checkLateralWarning()');
+            renderSetInputs('push-tri-sets', 2, 'push-tri', 'Al Fallo');
+            renderSetInputs('push-norm-sets', 2, 'push-norm', 'Al Fallo');
+
+            renderSetInputs('pull-dom-sets', 2, 'pull-dom', 'Al Fallo');
+            renderSetInputs('pull-aus-sets', 2, 'pull-aus', 'Al Fallo');
+            renderSetInputs('pull-pelican-sets', 2, 'pull-pelican', 'Al Fallo');
+            renderSetInputs('pull-lat-sets', 3, 'pull-lat-pull', 'Al Fallo');
+
+            renderSetInputs('legs-sissy-sets', 3, 'legs-sissy', '3ª al Fallo');
+            // MODIFICADO: Llamada a la nueva función unilateral (2 series)
+            renderUnilateralSetInputs('legs-calf-sets', 2, 'legs-calf', 'Al Fallo');
+            renderSetInputs('legs-invnordic-sets', 2, 'legs-invnordic', 'Al Fallo');
+            renderSetInputs('legs-nordic-sets', 2, 'legs-nordic', 'Al Fallo');
+
+            renderSetInputs('arms-lat-sets', 3, 'arms-lat', 'Al Fallo');
+            renderSetInputs('arms-tri-sets', 2, 'arms-tri', 'Al Fallo');
+            renderSetInputs('arms-pelican-sets', 2, 'arms-pelican', 'Al Fallo');
+        }
+
+        function renderHspuInputs() {
+            const count = parseInt(document.getElementById('hspu-series-count').value);
+            const container = document.getElementById('push-hspu-sets');
+            if(!container) return;
+            container.innerHTML = '';
+            for(let i=1; i<=count; i++) {
+                const isLast = (i === count);
+                const badge = isLast ? 'Al Fallo' : 'RIR 1';
+                container.innerHTML += `
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex flex-col justify-between">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-blue-400">Serie ${i}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gray-800 text-gray-300">${badge}</span>
+                        </div>
+                        <input type="number" placeholder="Reps" data-set="${i}" class="push-hspu-input w-full bg-gray-900 border border-gray-700 text-white text-center text-sm font-bold rounded-lg py-1.5 focus:outline-none focus:border-blue-500">
+                    </div>
+                `;
+            }
+        }
+
+        function renderSetInputs(containerId, count, cls, badgeText, onInputAttr='') {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.innerHTML = '';
+            for(let i=1; i<=count; i++) {
+                container.innerHTML += `
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex flex-col justify-between">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-blue-400">Serie ${i}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gray-800 text-gray-300">${badgeText}</span>
+                        </div>
+                        <input type="number" placeholder="Reps" data-set="${i}" ${onInputAttr ? `oninput="${onInputAttr}"` : ''} class="${cls}-input w-full bg-gray-900 border border-gray-700 text-white text-center text-sm font-bold rounded-lg py-1.5 focus:outline-none focus:border-blue-500">
+                    </div>
+                `;
+            }
+        }
+
+        // NUEVA FUNCIÓN: Para generar inputs divididos (Izq y Der)
+        function renderUnilateralSetInputs(containerId, count, cls, badgeText) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.innerHTML = '';
+            for(let i=1; i<=count; i++) {
+                container.innerHTML += `
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex flex-col justify-between">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-blue-400">Serie ${i}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gray-800 text-gray-300">${badgeText}</span>
+                        </div>
+                        <div class="flex gap-2 mt-1">
+                            <div class="flex-1">
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center">Izq</label>
+                                <input type="number" placeholder="Reps" data-set="${i}" data-side="izq" class="${cls}-input w-full bg-gray-900 border border-gray-700 text-white text-center text-sm font-bold rounded-lg py-1.5 focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div class="flex-1">
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center">Der</label>
+                                <input type="number" placeholder="Reps" data-set="${i}" data-side="der" class="${cls}-input w-full bg-gray-900 border border-gray-700 text-white text-center text-sm font-bold rounded-lg py-1.5 focus:outline-none focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function checkLateralWarning() {
+            const firstSet = document.querySelector('.push-lat-input[data-set="1"]');
+            const warning = document.getElementById('lat-warning');
+            if(firstSet && parseInt(firstSet.value) > 15) {
+                warning.classList.remove('hidden');
+            } else {
+                warning.classList.add('hidden');
+            }
+        }
+
+        function saveWorkout(type) {
+            let data = {
+                id: Date.now(),
+                type: type === 'push' ? 'Lunes: Empuje' : type === 'pull' ? 'Miércoles: Tracción' : type === 'legs' ? 'Viernes: Piernas' : 'Sábado: Brazos',
+                date: document.getElementById(`${type}-date`).value,
+                details: []
+            };
+
+            if(type === 'push') {
+                const location = document.getElementById('hspu-location').value;
+                let hspuReps = [];
+                document.querySelectorAll('.push-hspu-input').forEach(el => { if(el.value) hspuReps.push(el.value); });
+                if(hspuReps.length > 0) data.details.push(`HSPU (En ${location}): ${hspuReps.join(' / ')} reps`);
+
+                const w = document.getElementById('push-lat-weight').value;
+                collectReps(data, `Elevaciones Laterales (${w}kg)`, '.push-lat-input');
+                collectReps(data, 'Flexiones Tríceps', '.push-tri-input');
+                collectReps(data, 'Flexiones Normales', '.push-norm-input');
+            } else if(type === 'pull') {
+                collectReps(data, 'Dominadas con giro', '.pull-dom-input');
+                collectReps(data, 'Dominadas Australianas', '.pull-aus-input');
+                collectReps(data, 'Curl Pelican', '.pull-pelican-input');
+                const w = document.getElementById('pull-lat-weight').value;
+                collectReps(data, `Elevaciones Laterales (${w}kg)`, '.pull-lat-pull-input');
+            } else if(type === 'legs') {
+                collectReps(data, 'Sissy Squats', '.legs-sissy-input');
+                // MODIFICADO: Usar el recolector unilateral
+                collectUnilateralReps(data, 'Elevación de Talón', '.legs-calf-input');
+                collectReps(data, 'Curl Nórdico Invertido', '.legs-invnordic-input');
+                collectReps(data, 'Curl Nórdico', '.legs-nordic-input');
+            } else if(type === 'arms') {
+                const w = document.getElementById('arms-lat-weight').value;
+                collectReps(data, `Elevaciones Laterales (${w}kg)`, '.arms-lat-input');
+                collectReps(data, 'Tríceps Aislamiento', '.arms-tri-input');
+                collectReps(data, 'Curl Pelican', '.arms-pelican-input');
+            }
+
+            if(data.details.length === 0) {
+                alert("Completa al menos una serie.");
+                return;
+            }
+
+            let history = JSON.parse(localStorage.getItem('garou_workouts_v2') || '[]');
+            history.push(data);
+            localStorage.setItem('garou_workouts_v2', JSON.stringify(history));
+            alert("¡Sesión guardada con éxito!");
+            switchTab('history');
+        }
+
+        function collectReps(data, title, selector) {
+            let reps = [];
+            document.querySelectorAll(selector).forEach(el => { if(el.value) reps.push(el.value); });
+            if(reps.length > 0) data.details.push(`${title}: ${reps.join(' / ')} reps`);
+        }
+
+        // NUEVA FUNCIÓN: Recolecta reps en formato "Izq:X Der:Y"
+        function collectUnilateralReps(data, title, selector) {
+            let reps = [];
+            let inputs = document.querySelectorAll(selector);
+            for(let i=0; i<inputs.length; i+=2) {
+                let izq = inputs[i].value;
+                let der = inputs[i+1].value;
+                if(izq || der) {
+                    reps.push(`Izq:${izq || 0} Der:${der || 0}`);
+                }
+            }
+            if(reps.length > 0) data.details.push(`${title}: ${reps.join(' / ')} reps`);
+        }
+
+        let chartInstances = {};
+
+        function renderHistory() {
+            const container = document.getElementById('history-container');
+            if(!container) return;
+            let history = JSON.parse(localStorage.getItem('garou_workouts_v2') || '[]');
+            
+            if(history.length === 0) {
+                container.innerHTML = `<p class="text-gray-500 text-xs text-center py-4">No hay entrenamientos guardados todavía.</p>`;
+                destroyAllCharts();
+                return;
+            }
+
+            container.innerHTML = '';
+            history.sort((a, b) => b.id - a.id).forEach(item => {
+                let detailsHtml = item.details.map(d => `<li class="text-xs text-gray-300">• ${d}</li>`).join('');
+                container.innerHTML += `
+                    <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs font-bold text-blue-400">${item.type}</span>
+                                <span class="text-[10px] bg-gray-800 px-2 py-0.5 rounded text-gray-400">${item.date}</span>
+                            </div>
+                            <ul class="mt-2 space-y-1">${detailsHtml}</ul>
+                        </div>
+                        <button onclick="deleteWorkout(${item.id})" class="text-red-400 hover:text-red-300 text-xs px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 transition-all">
+                            <i class="fa-solid fa-trash mr-1"></i> Eliminar
+                        </button>
+                    </div>
+                `;
+            });
+
+            processAndRenderCharts(history);
+        }
+
+        function processAndRenderCharts(history) {
+            let sortedHistory = [...history].sort((a, b) => a.date.localeCompare(b.date));
+            let dates = sortedHistory.map(item => item.date);
+
+            let dataSeries = {
+                'push-hspu': [], 'push-lat': [], 'push-tri': [], 'push-norm': [],
+                'pull-dom': [], 'pull-aus': [], 'pull-pelican': [], 'pull-lat': [],
+                'legs-sissy': [], 'legs-calf': [], 'legs-invnordic': [], 'legs-nordic': [],
+                'arms-lat': [], 'arms-tri': [], 'arms-pelican': []
+            };
+
+            sortedHistory.forEach(item => {
+                let found = {
+                    'push-hspu': 0, 'push-lat': 0, 'push-tri': 0, 'push-norm': 0,
+                    'pull-dom': 0, 'pull-aus': 0, 'pull-pelican': 0, 'pull-lat': 0,
+                    'legs-sissy': 0, 'legs-calf': 0, 'legs-invnordic': 0, 'legs-nordic': 0,
+                    'arms-lat': 0, 'arms-tri': 0, 'arms-pelican': 0
+                };
+
+                item.details.forEach(detail => {
+                    let parts = detail.split(':');
+                    if (parts.length > 1) {
+                        // MODIFICADO: Sistema más robusto para sumar todos los números de un registro (sirve tanto para "12 / 10" como para "Izq:10 Der:10")
+                        let nums = parts[1].match(/\d+/g);
+                        let totalReps = nums ? nums.map(Number).reduce((a, b) => a + b, 0) : 0;
+
+                        if (detail.startsWith('HSPU')) found['push-hspu'] = totalReps;
+                        else if (detail.startsWith('Elevaciones Laterales') && item.type.includes('Empuje')) found['push-lat'] = totalReps;
+                        else if (detail.startsWith('Flexiones Tríceps')) found['push-tri'] = totalReps;
+                        else if (detail.startsWith('Flexiones Normales')) found['push-norm'] = totalReps;
+                        
+                        else if (detail.startsWith('Dominadas con giro')) found['pull-dom'] = totalReps;
+                        else if (detail.startsWith('Dominadas Australianas')) found['pull-aus'] = totalReps;
+                        else if (detail.startsWith('Curl Pelican') && item.type.includes('Tracción')) found['pull-pelican'] = totalReps;
+                        else if (detail.startsWith('Elevaciones Laterales') && item.type.includes('Tracción')) found['pull-lat'] = totalReps;
+
+                        else if (detail.startsWith('Sissy Squats')) found['legs-sissy'] = totalReps;
+                        else if (detail.startsWith('Elevación de Talón')) found['legs-calf'] = totalReps;
+                        else if (detail.startsWith('Curl Nórdico Invertido')) found['legs-invnordic'] = totalReps;
+                        else if (detail.startsWith('Curl Nórdico')) found['legs-nordic'] = totalReps;
+
+                        else if (detail.startsWith('Elevaciones Laterales') && item.type.includes('Brazos')) found['arms-lat'] = totalReps;
+                        else if (detail.startsWith('Tríceps Aislamiento')) found['arms-tri'] = totalReps;
+                        else if (detail.startsWith('Curl Pelican') && item.type.includes('Brazos')) found['arms-pelican'] = totalReps;
+                    }
+                });
+
+                Object.keys(found).forEach(k => dataSeries[k].push(found[k]));
+            });
+
+            Object.keys(dataSeries).forEach(key => {
+                let color = key.startsWith('push') ? '#3b82f6' : key.startsWith('pull') ? '#3b82f6' : key.startsWith('legs') ? '#10b981' : '#a855f7';
+                updateSingleChart(key, dates, dataSeries[key], color);
+            });
+        }
+
+        function updateSingleChart(id, labels, data, color) {
+            const canvasEl = document.getElementById(`chart-${id}`);
+            if(!canvasEl) return;
+            const ctx = canvasEl.getContext('2d');
+            
+            if (chartInstances[id]) chartInstances[id].destroy();
+
+            chartInstances[id] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        borderColor: color,
+                        backgroundColor: color + '15',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: color,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#9ca3af', font: { size: 10 } } },
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#9ca3af', font: { size: 10 } }, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function destroyAllCharts() {
+            Object.keys(chartInstances).forEach(id => {
+                if (chartInstances[id]) chartInstances[id].destroy();
+            });
+            chartInstances = {};
+        }
+
+        // FUNCIONES DE EXPORTAR E IMPORTAR RESPALDO
+        function exportData() {
+            let data = localStorage.getItem('garou_workouts_v2');
+            if (!data || JSON.parse(data).length === 0) {
+                alert("No hay entrenamientos guardados para exportar.");
+                return;
+            }
+            let blob = new Blob([data], { type: 'application/json' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = `garou_backup_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            let file = event.target.files[0];
+            if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let importedData = JSON.parse(e.target.result);
+                    if (Array.isArray(importedData)) {
+                        localStorage.setItem('garou_workouts_v2', JSON.stringify(importedData));
+                        renderHistory();
+                        alert("¡Respaldo importado con éxito!");
+                    } else {
+                        alert("El archivo no tiene el formato correcto.");
+                    }
+                } catch (err) {
+                    alert("Error al leer el archivo JSON.");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // limpiar input
+        }
+
+        function clearHistory() {
+            if(confirm("¿Estás seguro de borrar todo el historial?")) {
+                localStorage.removeItem('garou_workouts_v2');
+                renderHistory();
+            }
+        }
+
+        function deleteWorkout(id) {
+            let history = JSON.parse(localStorage.getItem('garou_workouts_v2') || '[]');
+            history = history.filter(item => item.id !== id);
+            localStorage.setItem('garou_workouts_v2', JSON.stringify(history));
+            renderHistory();
+        }
+
+        renderInputs();
+    </script>
+</body>
+</html>

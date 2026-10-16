@@ -1,0 +1,1 @@
+python -m PyInstaller --noconsole --onefile --add-data "Entrenamiento.html;." --icon="Foto_App.ico" app.py
